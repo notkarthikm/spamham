@@ -1,7 +1,11 @@
 import streamlit as st
 import pickle
 import string
+import nltk
 from nltk.corpus import stopwords
+
+# Download stopwords
+nltk.download('stopwords')
 
 # Define the text_process function
 def text_process(mess):
@@ -24,7 +28,7 @@ def text_process(mess):
 with open('pipeline.pkl', 'rb') as model_file:
     model = pickle.load(model_file)
 
-st.title('Spam/Ham Classification')
+st.title('Spam or Ham?')
 
 # Text input from the user
 user_input = st.text_area("Enter the message you want to classify:", "")
@@ -37,9 +41,9 @@ if st.button("Classify"):
         
         # Display the result
         if prediction[0] == 'spam':
-            st.error(f'This message is classified as SPAM.')
+            st.error('This message is classified as SPAM.')
         else:
-            st.success(f'This message is classified as HAM.')
+            st.success('This message is classified as HAM.')
 
         # Display the prediction probabilities
         st.write("Prediction probabilities:")
